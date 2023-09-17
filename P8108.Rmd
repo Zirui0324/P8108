@@ -1,0 +1,18 @@
+---
+title: "Lec1"
+author: "Zirui Zhang"
+date: "2023-09-16"
+output: html_document
+---
+
+```{r}
+library(biostat3)
+library(survival)
+```
+
+
+```{r}
+data("transplant")
+
+```
+
