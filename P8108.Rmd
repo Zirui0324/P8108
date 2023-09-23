@@ -13,24 +13,24 @@ library(survival)
 
 
 ```{r}
-mu = 0
-sigma = 1
+m = 0
+s = 1
 t = seq(0.01, 5, by = 0.01)
-hazard = (1/(t*sigma*sqrt(2*pi)))*exp(-((log(t)-mu)^2)/(2*sigma^2))
-hazard_data = data.frame(time = t, hazard = hazard)
-ggplot(hazard_data, aes(x = time, y = hazard)) +
+hazard = 1/(t*s*sqrt(2*pi))*exp(-((log(t)-m)^2)/(2*s^2))
+data = data.frame(x = t, y = hazard)
+ggplot(data, aes(x = x, y = y)) +
   geom_line() +
   labs(x = "time", y = "h(t)", title = "Lognormal Distribution with (0, 1)") +
   theme(panel.grid = element_blank())
 ```
 
 ```{r}
-alpha = 3
-beta = 1
+a = 3
+b = 1
 t = seq(0.01, 10, by = 0.01)
-hazard_gamma = (t^(alpha-1)*exp(-t/beta))/(beta^alpha*gamma(alpha))
-hazard_data_gamma <- data.frame(time = t, hazard = hazard_gamma)
-ggplot(hazard_data_gamma, aes(x = time, y = hazard)) +
+hazard_gamma = (t^(a-1)*exp(-t/b))/(b^a*gamma(a))
+data_gamma <- data.frame(x = t, y = hazard_gamma)
+ggplot(data_gamma, aes(x = x, y = y)) +
   geom_line() +
   labs(x = "time", y = "h(t)", title = "Gamma Distribution with (3, 1)") + 
   theme(panel.grid = element_blank())
