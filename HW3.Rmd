@@ -1,7 +1,7 @@
 ---
-title: "HW3"
-author: "Zirui Zhang"
-date: "2023-09-30"
+title: " "
+author: " "
+date: " "
 output: html_document
 ---
 
@@ -31,8 +31,8 @@ lt2 = lifetab2(Surv(futime, fustat == 1) ~ 1,
                data[data$rx == 2, ], 
                breaks= seq(0, 1300, 100)) #rx=2
 options(digits=2)
-lt1 %>% kable(caption = "Life-table for treatment 1") # life-table for treatment 1
-lt2 %>% kable(caption = "Life-table for treatment 2") # life-table for treatment 2
+print(lt1) # life-table for treatment 1
+print(lt2) # life-table for treatment 2
 ```
 
 ### 2. Plot harzard function by rx
@@ -80,4 +80,6 @@ hfit %>% autoplot() + ylab("S(t)") + xlab("Time")
 ```
 
 The two methods give the same median estimations. Generally the F-H method gave higher survival rates and lower se, which could be because the di/ni rate is rather high in this dataset. 
+
+The survival rate of patients in treatment 1 is lower than those in treatment 2, especially in the first 300 days,indicating treatment 2 could potentially be a better treatment. In treatment 1 group, less than half the patients survived beyond 700 days, while in treatment 2 group, more than 57% patients survived beyond 1200 days.
 
