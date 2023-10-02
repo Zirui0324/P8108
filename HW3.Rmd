@@ -1,0 +1,83 @@
+---
+title: "HW3"
+author: "Zirui Zhang"
+date: "2023-09-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(biostat3)
+library(survival)
+library(tidyverse)
+library("ggfortify")
+library(survminer)
+library(kableExtra)
+```
+
+# Question 3
+
+```{r}
+data = ovarian %>% mutate(fustat = as.factor(fustat), rx = as.factor(rx))
+```
+
+### 1. Create life-time stratified by rx
+```{r}
+# Create life-table stratified by rx
+lt1 = lifetab2(Surv(futime, fustat == 1) ~ 1, 
+               data[data$rx == 1, ], 
+               breaks= seq(0, 1300, 100)) #rx=1
+lt2 = lifetab2(Surv(futime, fustat == 1) ~ 1, 
+               data[data$rx == 2, ], 
+               breaks= seq(0, 1300, 100)) #rx=2
+options(digits=2)
+lt1 %>% kable(caption = "Life-table for treatment 1") # life-table for treatment 1
+lt2 %>% kable(caption = "Life-table for treatment 2") # life-table for treatment 2
+```
+
+### 2. Plot harzard function by rx
+
+```{r warning=FALSE}
+ggplot(lt1, aes(x = tstart, xend = tstop, y = hazard, yend = hazard)) +
+  geom_segment() +
+  labs(x = "t", y = "h(t)") +
+  ggtitle("Hazard function for treatment 1") +
+  theme_minimal() #rx=1
+
+ggplot(lt2, aes(x = tstart, xend = tstop, y = hazard, yend = hazard)) +
+  geom_segment() +
+  labs(x = "t", y = "h(t)") +
+  ggtitle("Hazard function for treatment 2")+
+  theme_minimal() #rx=2
+```
+
+### 3. Plot K-M survival function by rx
+
+```{r warning=FALSE}
+mfit = survfit(Surv(futime, fustat == 1) ~ rx, data)
+plot(mfit, ylab="S(t)", xlab="Time in days",
+     main = "Kaplan−Meier estimates of treatment-specific survival")
+```
+
+### 4. Median for each treatment group
+
+- rx 1: median = 638
+- rx 2: median doesn't exist
+
+```{r warning=FALSE}
+print(mfit)
+```
+ 
+### 5. Compare survival function estimations between K-M and F-H methods
+
+```{r warning=FALSE}
+hfit = survfit(Surv(futime, fustat == 1) ~ rx, type = "fleming-harrington", data)
+print(hfit)
+summary(mfit)
+summary(hfit)
+mfit %>% autoplot() + ylab("S(t)") + xlab("Time")
+hfit %>% autoplot() + ylab("S(t)") + xlab("Time")
+```
+
+The two methods give the same median estimations. Generally the F-H method gave higher survival rates and lower se, which could be because the di/ni rate is rather high in this dataset. 
+
