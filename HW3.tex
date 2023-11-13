@@ -115,17 +115,13 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
-  pdftitle={HW3},
-  pdfauthor={Zirui Zhang},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 
-\title{HW3}
-\author{Zirui Zhang}
-\date{2023-09-30}
+\author{}
+\date{\vspace{-2.5em}}
 
 \begin{document}
-\maketitle
 
 \hypertarget{question-3}{%
 \section{Question 3}\label{question-3}}
@@ -133,12 +129,8 @@
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{data }\OtherTok{=}\NormalTok{ ovarian }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{fustat =} \FunctionTok{as.factor}\NormalTok{(fustat), }\AttributeTok{rx =} \FunctionTok{as.factor}\NormalTok{(rx))}
-\NormalTok{ovarian.survfit }\OtherTok{=}\NormalTok{ ovarian }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{survfit}\NormalTok{(}\FunctionTok{Surv}\NormalTok{(futime, fustat) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ rx, }\AttributeTok{data =}\NormalTok{ .)}
-\NormalTok{ovarian.survfit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{autoplot}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"S(t)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Time"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\includegraphics{HW3_files/figure-latex/unnamed-chunk-1-1.pdf}
 
 \hypertarget{create-life-time-stratified-by-rx}{%
 \subsubsection{1. Create life-time stratified by
@@ -154,93 +146,81 @@ rx}\label{create-life-time-stratified-by-rx}}
 \NormalTok{               data[data}\SpecialCharTok{$}\NormalTok{rx }\SpecialCharTok{==} \DecValTok{2}\NormalTok{, ], }
                \AttributeTok{breaks=} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1300}\NormalTok{, }\DecValTok{100}\NormalTok{)) }\CommentTok{\#rx=2}
 \FunctionTok{options}\NormalTok{(}\AttributeTok{digits=}\DecValTok{2}\NormalTok{)}
-\NormalTok{lt1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Life{-}table for treatment 1"}\NormalTok{) }\CommentTok{\# life{-}table for treatment 1}
+\FunctionTok{print}\NormalTok{(lt1) }\CommentTok{\# life{-}table for treatment 1}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
-
-\caption{\label{tab:unnamed-chunk-2}Life-table for treatment 1}
-\centering
-\begin{tabular}[t]{l|r|r|r|r|r|r|r|r|r|r|r|r}
-\hline
-  & tstart & tstop & nsubs & nlost & nrisk & nevent & surv & pdf & hazard & se.surv & se.pdf & se.hazard\\
-\hline
-0-100 & 0 & 100 & 13 & 0 & 13.0 & 1 & 1.00 & 0 & 0 & 0.00 & 0 & 0\\
-\hline
-100-200 & 100 & 200 & 12 & 0 & 12.0 & 2 & 0.92 & 0 & 0 & 0.07 & 0 & 0\\
-\hline
-200-300 & 200 & 300 & 10 & 0 & 10.0 & 1 & 0.77 & 0 & 0 & 0.12 & 0 & 0\\
-\hline
-300-400 & 300 & 400 & 9 & 0 & 9.0 & 1 & 0.69 & 0 & 0 & 0.13 & 0 & 0\\
-\hline
-400-500 & 400 & 500 & 8 & 2 & 7.0 & 1 & 0.62 & 0 & 0 & 0.13 & 0 & 0\\
-\hline
-500-600 & 500 & 600 & 5 & 0 & 5.0 & 0 & 0.53 & 0 & 0 & 0.14 & NaN & NaN\\
-\hline
-600-700 & 600 & 700 & 5 & 0 & 5.0 & 1 & 0.53 & 0 & 0 & 0.14 & 0 & 0\\
-\hline
-700-800 & 700 & 800 & 4 & 0 & 4.0 & 0 & 0.42 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-800-900 & 800 & 900 & 4 & 2 & 3.0 & 0 & 0.42 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-900-1000 & 900 & 1000 & 2 & 0 & 2.0 & 0 & 0.42 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-1000-1100 & 1000 & 1100 & 2 & 1 & 1.5 & 0 & 0.42 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-1100-1200 & 1100 & 1200 & 1 & 1 & 0.5 & 0 & 0.42 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-1200-1300 & 1200 & 1300 & 0 & 0 & 0.0 & 0 & 0.42 & NaN & NaN & 0.15 & NaN & NaN\\
-\hline
-1300-Inf & 1300 & Inf & 0 & 0 & 0.0 & 0 & NaN & NA & NA & NaN & NA & NA\\
-\hline
-\end{tabular}
-\end{table}
+\begin{verbatim}
+##           tstart tstop nsubs nlost nrisk nevent surv     pdf hazard se.surv
+## 0-100          0   100    13     0  13.0      1 1.00 0.00077 0.0008   0.000
+## 100-200      100   200    12     0  12.0      2 0.92 0.00154 0.0018   0.074
+## 200-300      200   300    10     0  10.0      1 0.77 0.00077 0.0011   0.117
+## 300-400      300   400     9     0   9.0      1 0.69 0.00077 0.0012   0.128
+## 400-500      400   500     8     2   7.0      1 0.62 0.00088 0.0015   0.135
+## 500-600      500   600     5     0   5.0      0 0.53 0.00000 0.0000   0.141
+## 600-700      600   700     5     0   5.0      1 0.53 0.00105 0.0022   0.141
+## 700-800      700   800     4     0   4.0      0 0.42 0.00000 0.0000   0.147
+## 800-900      800   900     4     2   3.0      0 0.42 0.00000 0.0000   0.147
+## 900-1000     900  1000     2     0   2.0      0 0.42 0.00000 0.0000   0.147
+## 1000-1100   1000  1100     2     1   1.5      0 0.42 0.00000 0.0000   0.147
+## 1100-1200   1100  1200     1     1   0.5      0 0.42 0.00000 0.0000   0.147
+## 1200-1300   1200  1300     0     0   0.0      0 0.42     NaN    NaN   0.147
+## 1300-Inf    1300   Inf     0     0   0.0      0  NaN      NA     NA     NaN
+##            se.pdf se.hazard
+## 0-100     0.00074    0.0008
+## 100-200   0.00100    0.0013
+## 200-300   0.00074    0.0011
+## 300-400   0.00074    0.0012
+## 400-500   0.00084    0.0015
+## 500-600       NaN       NaN
+## 600-700   0.00099    0.0022
+## 700-800       NaN       NaN
+## 800-900       NaN       NaN
+## 900-1000      NaN       NaN
+## 1000-1100     NaN       NaN
+## 1100-1200     NaN       NaN
+## 1200-1300     NaN       NaN
+## 1300-Inf       NA        NA
+\end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{lt2 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{kable}\NormalTok{(}\AttributeTok{caption =} \StringTok{"Life{-}table for treatment 2"}\NormalTok{) }\CommentTok{\# life{-}table for treatment 2}
+\FunctionTok{print}\NormalTok{(lt2) }\CommentTok{\# life{-}table for treatment 2}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{table}
-
-\caption{\label{tab:unnamed-chunk-2}Life-table for treatment 2}
-\centering
-\begin{tabular}[t]{l|r|r|r|r|r|r|r|r|r|r|r|r}
-\hline
-  & tstart & tstop & nsubs & nlost & nrisk & nevent & surv & pdf & hazard & se.surv & se.pdf & se.hazard\\
-\hline
-0-100 & 0 & 100 & 13 & 0 & 13.0 & 0 & 1.00 & 0 & 0 & 0.00 & NaN & NaN\\
-\hline
-100-200 & 100 & 200 & 13 & 0 & 13.0 & 0 & 1.00 & 0 & 0 & 0.00 & NaN & NaN\\
-\hline
-200-300 & 200 & 300 & 13 & 0 & 13.0 & 0 & 1.00 & 0 & 0 & 0.00 & NaN & NaN\\
-\hline
-300-400 & 300 & 400 & 13 & 1 & 12.5 & 2 & 1.00 & 0 & 0 & 0.00 & 0 & 0\\
-\hline
-400-500 & 400 & 500 & 10 & 1 & 9.5 & 2 & 0.84 & 0 & 0 & 0.10 & 0 & 0\\
-\hline
-500-600 & 500 & 600 & 7 & 0 & 7.0 & 1 & 0.66 & 0 & 0 & 0.14 & 0 & 0\\
-\hline
-600-700 & 600 & 700 & 6 & 0 & 6.0 & 0 & 0.57 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-700-800 & 700 & 800 & 6 & 3 & 4.5 & 0 & 0.57 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-800-900 & 800 & 900 & 3 & 0 & 3.0 & 0 & 0.57 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-900-1000 & 900 & 1000 & 3 & 0 & 3.0 & 0 & 0.57 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-1000-1100 & 1000 & 1100 & 3 & 0 & 3.0 & 0 & 0.57 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-1100-1200 & 1100 & 1200 & 3 & 1 & 2.5 & 0 & 0.57 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-1200-1300 & 1200 & 1300 & 2 & 2 & 1.0 & 0 & 0.57 & 0 & 0 & 0.15 & NaN & NaN\\
-\hline
-1300-Inf & 1300 & Inf & 0 & 0 & 0.0 & 0 & 0.57 & NA & NA & 0.15 & NA & NA\\
-\hline
-\end{tabular}
-\end{table}
+\begin{verbatim}
+##           tstart tstop nsubs nlost nrisk nevent surv     pdf hazard se.surv
+## 0-100          0   100    13     0  13.0      0 1.00 0.00000 0.0000    0.00
+## 100-200      100   200    13     0  13.0      0 1.00 0.00000 0.0000    0.00
+## 200-300      200   300    13     0  13.0      0 1.00 0.00000 0.0000    0.00
+## 300-400      300   400    13     1  12.5      2 1.00 0.00160 0.0017    0.00
+## 400-500      400   500    10     1   9.5      2 0.84 0.00177 0.0024    0.10
+## 500-600      500   600     7     0   7.0      1 0.66 0.00095 0.0015    0.14
+## 600-700      600   700     6     0   6.0      0 0.57 0.00000 0.0000    0.15
+## 700-800      700   800     6     3   4.5      0 0.57 0.00000 0.0000    0.15
+## 800-900      800   900     3     0   3.0      0 0.57 0.00000 0.0000    0.15
+## 900-1000     900  1000     3     0   3.0      0 0.57 0.00000 0.0000    0.15
+## 1000-1100   1000  1100     3     0   3.0      0 0.57 0.00000 0.0000    0.15
+## 1100-1200   1100  1200     3     1   2.5      0 0.57 0.00000 0.0000    0.15
+## 1200-1300   1200  1300     2     2   1.0      0 0.57 0.00000 0.0000    0.15
+## 1300-Inf    1300   Inf     0     0   0.0      0 0.57      NA     NA    0.15
+##           se.pdf se.hazard
+## 0-100        NaN       NaN
+## 100-200      NaN       NaN
+## 200-300      NaN       NaN
+## 300-400   0.0010    0.0012
+## 400-500   0.0011    0.0017
+## 500-600   0.0009    0.0015
+## 600-700      NaN       NaN
+## 700-800      NaN       NaN
+## 800-900      NaN       NaN
+## 900-1000     NaN       NaN
+## 1000-1100    NaN       NaN
+## 1100-1200    NaN       NaN
+## 1200-1300    NaN       NaN
+## 1300-Inf      NA        NA
+\end{verbatim}
 
 \hypertarget{plot-harzard-function-by-rx}{%
 \subsubsection{2. Plot harzard function by
@@ -318,6 +298,49 @@ methods}\label{compare-survival-function-estimations-between-k-m-and-f-h-methods
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{hfit }\OtherTok{=} \FunctionTok{survfit}\NormalTok{(}\FunctionTok{Surv}\NormalTok{(futime, fustat }\SpecialCharTok{==} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\textasciitilde{}}\NormalTok{ rx, }\AttributeTok{type =} \StringTok{"fleming{-}harrington"}\NormalTok{, data)}
+\FunctionTok{print}\NormalTok{(hfit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: survfit(formula = Surv(futime, fustat == 1) ~ rx, data = data, 
+##     type = "fleming-harrington")
+## 
+##       n events median 0.95LCL 0.95UCL
+## rx=1 13      7    638     268      NA
+## rx=2 13      5     NA     475      NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(mfit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: survfit(formula = Surv(futime, fustat == 1) ~ rx, data = data)
+## 
+##                 rx=1 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##    59     13       1    0.923  0.0739        0.789        1.000
+##   115     12       1    0.846  0.1001        0.671        1.000
+##   156     11       1    0.769  0.1169        0.571        1.000
+##   268     10       1    0.692  0.1280        0.482        0.995
+##   329      9       1    0.615  0.1349        0.400        0.946
+##   431      8       1    0.538  0.1383        0.326        0.891
+##   638      5       1    0.431  0.1467        0.221        0.840
+## 
+##                 rx=2 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##   353     13       1    0.923  0.0739        0.789        1.000
+##   365     12       1    0.846  0.1001        0.671        1.000
+##   464      9       1    0.752  0.1256        0.542        1.000
+##   475      8       1    0.658  0.1407        0.433        1.000
+##   563      7       1    0.564  0.1488        0.336        0.946
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{summary}\NormalTok{(hfit)}
 \end{Highlighting}
 \end{Shaded}
@@ -347,17 +370,28 @@ methods}\label{compare-survival-function-estimations-between-k-m-and-f-h-methods
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(hfit)}
+\NormalTok{mfit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{autoplot}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"S(t)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Time"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Call: survfit(formula = Surv(futime, fustat == 1) ~ rx, data = data, 
-##     type = "fleming-harrington")
-## 
-##       n events median 0.95LCL 0.95UCL
-## rx=1 13      7    638     268      NA
-## rx=2 13      5     NA     475      NA
-\end{verbatim}
+\includegraphics{HW3_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hfit }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{autoplot}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"S(t)"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Time"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{HW3_files/figure-latex/unnamed-chunk-6-2.pdf}
+
+The two methods give the same median estimations. Generally the F-H
+method gave higher survival rates and lower se, which could be because
+the di/ni rate is rather high in this dataset.
+
+The survival rate of patients in treatment 1 is lower than those in
+treatment 2, especially in the first 300 days,indicating treatment 2
+could potentially be a better treatment. In treatment 1 group, less than
+half the patients survived beyond 700 days, while in treatment 2 group,
+more than 57\% patients survived beyond 1200 days.
 
 \end{document}
